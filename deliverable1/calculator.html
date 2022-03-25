@@ -1,0 +1,155 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Calculator</title>
+    <link id="currentStyle" href="./css/global.css" rel="stylesheet" />
+
+    <script>
+        let inputF = null;
+        let outputC = null;
+        let inputC = null;
+        let outputF = null;
+        let inputT = null;
+        let inputRH = null;
+        let outputD = null;
+
+        function bodyOnLoad() {
+            inputF = document.getElementById("txtInputF");
+            outputC = document.getElementById("txtOutputC");
+            inputC = document.getElementById("txtInputC");
+            outputF = document.getElementById("txtOutputF");
+            inputT = document.getElementById("txtInputT");
+            inputRH = document.getElementById("txtInputRH");
+            outputD = document.getElementById("txtOutputD");
+        }
+
+        function btnFClick() {
+            let outputNum1;
+            let outputString1;
+
+            let valueF = parseFloat(inputF.value);
+
+            // F - 32 * 5/9
+            if (!isNaN(valueF)) {
+                outputNum1 = (valueF - 32) * 5 / 9;
+                outputString1 = inputF.value + " Fahrenheit is (F) " + outputNum1.toFixed(2) + " (C)";
+            }
+            else {
+                outputString1 = "Input not a valid number.";
+            }
+            outputC.innerHTML = outputString1;
+        }
+
+        function selCommon1OnChange() {
+            let selCommon1 = document.getElementById("selCommon1")
+            inputF.value = selCommon1.value.toString();
+        }
+
+        function btnCClick() {
+            let outputNum2;
+            let outputString2;
+
+            let valueC = parseFloat(inputC.value);
+            // C * 9/5 + 32
+            if (!isNaN(valueC)) {
+                outputNum2 = (valueC * 9 / 5) + 32;
+                outputString2 = inputC.value + " Celsius is (C) " + outputNum2.toFixed(2) + " (F)";
+            }
+            else {
+                outputString2 = "Input not a valid number.";
+            }
+            outputF.innerHTML = outputString2;
+        }
+
+        function selCommon2OnChange() {
+            let selCommon2 = document.getElementById("selCommon2")
+            inputC.value = selCommon2.value.toString();
+        }
+
+        function btnDClick() {
+            let outputNum3;
+            let outputString3;
+
+            let valueT = parseFloat(inputT.value);
+            let valueRH = parseFloat(inputRH.value);
+            // T - ((100 - RH)/5)
+            if (!isNaN(valueT)) {
+                if (!isNaN(valueRH)) {
+                    outputNum3 = valueT - ((100 - valueRH) / 5);
+                    outputString3 = "The Dew Point is " + outputNum3.toFixed(2);
+                }
+            }
+            else {
+                outputString3 = "Inputs are invalid.";
+            }
+            outputD.innerHTML = outputString3;
+        }
+    </script>
+</head>
+
+<body onload="bodyOnLoad()">
+    <a href="home.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="#calculator">Calculator</a>
+
+    <!-- Fahrenheit to Celsius Section-->
+    <h1 id="calculator">Fahrenheit to Celsius Calculator</h1>
+    <h2>Enter Input</h2>
+
+    <select id="selCommon1" onchange="selCommon1OnChange()">
+        <option value="-459.67">Kelvin</option>
+        <option value="32">Water Freezing</option>
+        <option value="212">Water Boiling</option>
+    </select>
+
+    <label for="txtInputF">Enter Temperature (F)</label>
+    <input id="txtInputF" type="text" />
+    <input type="button" value="Calculate" onclick="btnFClick()" />
+
+    <h2>Results:</h2>
+    <span id="txtOutputC"></span>
+
+    <hr />
+    <!-- Celsius to Fahrenheit Section-->
+    <h1>Celsius to Fahrenheit Calculator</h1>
+    <h2>Enter Input</h2>
+
+    <select id="selCommon2" onchange="selCommon2OnChange()">
+        <option value="-273.15">Kelvin</option>
+        <option value="0">Water Freezing</option>
+        <option value="100">Water Boiling</option>
+    </select>
+
+    <label for="txtInputC">Enter Temperature (C)</label>
+    <input id="txtInputC" type="text" />
+    <input type="button" value="Calculate" onclick="btnCClick()" />
+
+    <h2>Results:</h2>
+    <span id="txtOutputF"></span>
+
+    <hr />
+    <!-- Dew Point Section-->
+    <h1>Dew Point Calculator</h1>
+    <h2>Enter Inputs</h2>
+
+    <label for="txtInputT">Enter Temperature (T)</label>
+    <input id="txtInputT" type="text" />
+
+    <br /> <br />
+
+    <label for="txtInputRH">Enter Relative Humidity (RH)</label>
+    <input id="txtInputRH" type="text" />
+    <input type="button" value="Calculate" onclick="btnDClick()" />
+
+    <h2>Results:</h2>
+    <span id="txtOutputD"></span>
+
+    <script>
+        let d = new Date();
+        document.write("<hr />")
+        document.write(d.toString());
+    </script>
+</body>
+</html>
